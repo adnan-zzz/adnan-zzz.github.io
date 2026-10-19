@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eeeaf6">
+<meta name="description" content="Goggle Chrominium — a Firefox-inspired web portal for your favorite sites.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Goggle Chrominium</title>
+<style>
+:root{--bg:#f9f7ff;--panel:#eeeaf6;--panel2:#e5e0ef;--ink:#252333;--muted:#686578;--accent:#7059b8;--line:#d8d2e5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 "Segoe UI",Arial,sans-serif;min-height:100vh}
+header{background:var(--panel);padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+.brandrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}.logo{width:26px;height:26px;border-radius:50%;background:conic-gradient(#ef5350 0 120deg,#f6c344 120deg 240deg,#55a66e 240deg);position:relative;flex:none}.logo:after{content:"";position:absolute;inset:7px;border-radius:50%;background:#7ba9e8;border:2px solid white}.brand{font-weight:700;font-size:16px}.tag{color:var(--muted);font-size:12px}
+.toolbar{display:flex;gap:8px;align-items:center}.addresswrap{display:flex;align-items:center;gap:8px;flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:0 13px;height:42px;min-width:0}.address{border:0;outline:0;background:transparent;width:100%;font:14px "Segoe UI",Arial;color:var(--ink);min-width:0}.btn{border:1px solid var(--line);background:white;color:var(--ink);border-radius:10px;padding:9px 12px;cursor:pointer;font:inherit;white-space:nowrap}.btn:hover{background:var(--panel2)}.primary{background:var(--accent);border-color:var(--accent);color:white}.primary:hover{background:#5c469e}
+main{max-width:960px;margin:0 auto;padding:44px 22px}.hero{text-align:center;margin:10px auto 32px}.biglogo{width:64px;height:64px;border-radius:50%;background:conic-gradient(#ef5350 0 120deg,#f6c344 120deg 240deg,#55a66e 240deg);position:relative;margin:0 auto 16px}.biglogo:after{content:"";position:absolute;inset:17px;border-radius:50%;background:#7ba9e8;border:4px solid white}.hero h1{font-size:clamp(28px,5vw,38px);letter-spacing:-.8px;margin:0 0 8px}.hero p{color:var(--muted);margin:0 0 24px}.searchbox{display:flex;gap:8px;padding:7px 8px 7px 16px;border-radius:25px;background:white;border:1px solid var(--line);box-shadow:0 5px 20px #2e1f4a0c;max-width:680px;margin:auto}.searchbox input{flex:1;border:0;outline:0;min-width:0;font:16px "Segoe UI",Arial}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:32px 0 12px}.sectionhead h2{font-size:16px;margin:0}.shortcuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px}.shortcut{display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--ink);padding:17px 8px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer}.shortcut:hover{background:#f1edfa;transform:translateY(-1px)}.shortcuticon{width:42px;height:42px;border-radius:14px;background:var(--panel);display:grid;place-items:center;font-size:19px;font-weight:700}.shortcut span{font-size:12px;overflow-wrap:anywhere;text-align:center}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px;display:none}.panel.open{display:block}.panel h3{margin:0 0 12px}.rowitem{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.rowitem:last-child{border:0}.rowitem a{flex:1;min-width:0;overflow-wrap:anywhere;color:var(--accent)}.fieldrow{display:flex;gap:8px;flex-wrap:wrap}.fieldrow input{flex:1;min-width:130px;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit}.note{color:var(--muted);font-size:12px;margin-top:10px}.status{border-top:1px solid var(--line);padding:12px 18px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:520px){header{padding:10px}.tag{display:none}.toolbar{gap:5px}.btn{padding:9px}.toolbar .hide-small{display:none}main{padding:30px 14px}.shortcuts{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brandrow"><div class="logo"></div><span class="brand">Goggle Chrominium</span><span class="tag">A browser-like home for the open web</span></div>
+  <form class="toolbar" id="navForm">
+    <div class="addresswrap"><span aria-hidden="true">◉</span><input class="address" id="address" placeholder="Search or enter website address" autocomplete="off" spellcheck="false" aria-label="Search or enter website address"></div>
+    <button class="btn primary" type="submit">Go</button>
+    <button class="btn hide-small" type="button" id="bookmarkCurrent" title="Bookmark the typed address">☆</button>
+  </form>
+</header>
+<main>
+  <section class="hero">
+    <div class="biglogo"></div>
+    <h1>Goggle Chrominium</h1>
+    <p>Your web, your shortcuts.</p>
+    <form class="searchbox" id="searchForm"><input id="search" placeholder="Search the internet with Google" aria-label="Search the internet"><button class="btn primary">Search</button></form>
+  </section>
+  <div class="sectionhead"><h2>Quick links</h2><button class="btn" id="addBookmark">＋ Add bookmark</button></div>
+  <section class="shortcuts" id="shortcuts"></section>
+  <section class="panel" id="bookmarkPanel"><h3>Bookmarks</h3><div id="bookmarkList"></div><p class="note">Bookmarks are saved in this browser on this device. Use the ☆ button to save a URL.</p></section>
+  <section class="panel" id="addPanel"><h3>Add a bookmark</h3><form id="addForm" class="fieldrow"><input id="bmTitle" placeholder="Name (e.g. My site)" required><input id="bmUrl" placeholder="https://example.com" required><button class="btn primary">Save</button></form></section>
+  <p class="note">Tip: choose a shortcut to open that website in a new browser tab. Chrome handles the actual website, logins, downloads, and security.</p>
+</main>
+<footer class="status">Goggle Chrominium · Chromebook edition · Powered by Chrome</footer>
+<script>
+const $=id=>document.getElementById(id);
+const defaults=[
+ {title:'Google',url:'https://www.google.com',icon:'G'},
+ {title:'YouTube',url:'https://www.youtube.com',icon:'▶'},
+ {title:'Wikipedia',url:'https://www.wikipedia.org',icon:'W'},
+ {title:'Roblox',url:'https://www.roblox.com',icon:'◇'},
+ {title:'Gmail',url:'https://mail.google.com',icon:'✉'},
+ {title:'Minecraft',url:'https://www.minecraft.net',icon:'▦'}
+];
+let bookmarks=JSON.parse(localStorage.getItem('gc-pwa-bookmarks')||'[]');
+function normalize(raw){let s=raw.trim();if(!s)return '';if(/^(https?|mailto):/i.test(s))return s;if(/^[\w.-]+\.[a-z]{2,}(:\d+)?(\/.*)?$/i.test(s))return 'https://'+s;return 'https://www.google.com/search?q='+encodeURIComponent(s)}
+function go(raw){const url=normalize(raw);if(url)window.open(url,'_blank','noopener,noreferrer')}
+$('navForm').addEventListener('submit',e=>{e.preventDefault();go($('address').value)});
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();go($('search').value)});
+function renderShortcuts(){const el=$('shortcuts');el.innerHTML='';[...defaults,...bookmarks].forEach((b,i)=>{const a=document.createElement('a');a.className='shortcut';a.href=b.url;a.target='_blank';a.rel='noopener noreferrer';const icon=document.createElement('div');icon.className='shortcuticon';icon.textContent=b.icon||'★';const label=document.createElement('span');label.textContent=b.title;a.append(icon,label);el.appendChild(a)})}
+function renderBookmarks(){const list=$('bookmarkList');list.innerHTML='';if(!bookmarks.length){list.textContent='No saved bookmarks yet.';return}bookmarks.forEach((b,i)=>{const row=document.createElement('div');row.className='rowitem';const a=document.createElement('a');a.href=b.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=b.title;const del=document.createElement('button');del.className='btn';del.textContent='Remove';del.onclick=()=>{bookmarks.splice(i,1);save();};row.append(a,del);list.appendChild(row)})}
+function save(){localStorage.setItem('gc-pwa-bookmarks',JSON.stringify(bookmarks));renderShortcuts();renderBookmarks()}
+$('bookmarkCurrent').onclick=()=>{const url=normalize($('address').value);if(!url||url.includes('/search?q=')){alert('Enter a website address first (for example, wikipedia.org).');return}addBookmark(url,$('address').value.trim()||url)};
+function addBookmark(url,title){if(bookmarks.some(b=>b.url===url)){alert('That bookmark already exists.');return}bookmarks.push({title:title||url,url,icon:'★'});save();$('bookmarkPanel').classList.add('open')}
+$('addBookmark').onclick=()=>{$('addPanel').classList.toggle('open');$('bmTitle').focus()};
+$('addForm').addEventListener('submit',e=>{e.preventDefault();const title=$('bmTitle').value.trim(),url=normalize($('bmUrl').value);if(!url){return}addBookmark(url,title);$('bmTitle').value='';$('bmUrl').value='';$('addPanel').classList.remove('open')});
+$('bookmarkPanel').classList.add('open');renderShortcuts();renderBookmarks();
+if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "id": "./",
+  "name": "Goggle Chrominium",
+  "short_name": "Chrominium",
+  "description": "A Firefox-inspired web portal with search and bookmarks.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f9f7ff",
+  "theme_color": "#eeeaf6",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
