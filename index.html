@@ -50,7 +50,7 @@ const defaults=[
  {title:'Roblox',url:'https://www.roblox.com',icon:'◇'},
  {title:'Gmail',url:'https://mail.google.com',icon:'✉'},
  {title:'Minecraft',url:'https://www.minecraft.net',icon:'▦'}
- {tite: 'Site add requests', url: 'https://docs.google.com/forms/d/e/1FAIpQLSd05Zq6VBPQYqEhZ25pHWM1AKSP44nkkIv1Q2xdxxtoad2XpQ/viewform?usp=publish-editor',icon:'✉'},
+ {tite: 'Site add requests',url:'https://docs.google.com/forms/d/e/1FAIpQLSd05Zq6VBPQYqEhZ25pHWM1AKSP44nkkIv1Q2xdxxtoad2XpQ/viewform?usp=publish-editor',icon:'✉'},
 ];
 let bookmarks=JSON.parse(localStorage.getItem('gc-pwa-bookmarks')||'[]');
 function normalize(raw){let s=raw.trim();if(!s)return '';if(/^(https?|mailto):/i.test(s))return s;if(/^[\w.-]+\.[a-z]{2,}(:\d+)?(\/.*)?$/i.test(s))return 'https://'+s;return 'https://www.google.com/search?q='+encodeURIComponent(s)}
